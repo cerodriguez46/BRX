@@ -1,0 +1,86 @@
+
+//configures build variants, dependencies, manifest entries, signing, proguard, and testing
+apply plugin: 'com.android.application'
+//build kotlin projects with gradle
+apply plugin: 'kotlin-android'
+//inlcudes conatiner support, flavor support, parceble, synthetic properties to call views, gets rid of findviewbyid by
+//caching the views into containers
+apply plugin: 'kotlin-android-extensions'
+//kotlin annotation processing,can use libraries like dagger or data binding
+apply plugin: 'kotlin-kapt'
+//generates safe type methods for each action along with sending and receiving destinations
+apply plugin: "androidx.navigation.safeargs"
+
+android {
+    //version to compile to an apk for testing
+    compileSdkVersion 28
+    //this enables databinding
+    dataBinding {
+        enabled = true
+    }
+    defaultConfig {
+        applicationId "christopher.brx"
+        //earliest release this application can run on
+        minSdkVersion 16
+        //targeted sdk this version to run on
+        targetSdkVersion 28
+        //represents incremental version of your app
+        versionCode 1
+        //friendly string version displayed to users
+        versionName "1.0"
+        //unit tests that run on physical devices and emulators
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    //can create different build types here such as release and debug ,as well as product flavors
+    buildTypes {
+        release {
+            minifyEnabled false
+            //proguard is a compile time shrinker that takes out unused things
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    //this enables experimental extension for
+    androidExtensions {
+        experimental = true
+    }
+}
+
+//annotation processors can generate annotations at buildtime
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // Kotlin- extended versoin that supports more features for jdk7
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
+
+    // Constraint Layout
+    implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
+
+    // Navigation
+    implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
+    implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
+
+    // Core with Ktx
+    implementation "androidx.core:core-ktx:$version_core"
+
+    implementation "com.squareup.moshi:moshi:$version_moshi"
+    implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
+
+    implementation "com.squareup.retrofit2:retrofit: $version_retrofit"
+
+    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_kotlin_coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
+
+    implementation "com.github.bumptech.glide:glide:$version_glide"
+
+    implementation"androidx.recyclerview:recyclerview:$version_recyclerview"
+    implementation 'androidx.room:room-runtime:2.0.0'
+    annotationProcessor 'androidx.room:room-compiler:2.0.0'
+
+    implementation "com.google.android.material:material:$version_material"
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- layout tag makes root class no longer view group but layout that contains our viewgroups and views-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- data binding allows us to connect a layout to fragment or activity at compile time. Compiler generates a helper class
+    called a binding class when activity is created. Can then access the views through the generated binding class with
+    binding.image.-->
+
+    <!-- data block lets layout know about the data -->
+    <data>
+        <!-- variable block for our variable and declare the variable-->
+        <!-- type if full name of the data class, now instead of string resource, we can reference this variable-->
+        <variable
+                name="viewModel"
+                type="christopher.brx.OverviewViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="christoher.brx.MainActivity">
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/stores_grid"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:padding="6dp"
+                android:orientation="vertical"
+                android:background="@color/colorPrimary"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:listData="@{viewModel.properties}"
+                app:spanCount="2"
+                android:clipToPadding="false"
+                tools:itemCount="16"
+                tools:listitem="@layout/grid_view_item" />
+
+        <!-- viewmodel.status gives direct reference to status variable -->
+        <ImageView
+                android:id="@+id/status_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:storesApiStatus="@{viewModel.status}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

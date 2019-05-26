@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph"
+            app:startDestination="@id/overviewFragment">
+
+    <!--Fragments define which fragments to display in navgraph -->
+    <fragment
+            android:id="@+id/overviewFragment"
+            android:name="christopher.brx.OverviewFragment"
+            android:label="fragment_overview"
+            tools:layout="@layout/fragment_overview" >
+
+        <!-- connects the destinations, need kotlin code such as onclick listner to trigger the action-->
+        <action
+                android:id="@+id/action_showDetail"
+                app:destination="@id/detailFragment" app:enterAnim="@anim/slide_out_top"
+                app:exitAnim="@anim/fade_out" app:popEnterAnim="@anim/slide_in_top" app:popExitAnim="@anim/fade_out"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/detailFragment"
+            android:name="christopher.brx.DetailFragment"
+            android:label="fragment_detail"
+            tools:layout="@layout/fragment_detail">
+
+<!-- Argument passes data between fragments-->
+        <argument
+                android:name="selectedProperty"
+                app:argType="christopher.brx.StoresPropertyX"/>
+    </fragment>
+
+    <!--Safe args takes a bundle which is a key value store, guarantees args on both sides match up, simplify argument passing
+     -->
+</navigation>
